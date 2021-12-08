@@ -87,13 +87,13 @@
         <chrome>
           <sullied @click="showGrid = !showGrid">{{numberOfSullied}} {{totalMoves != 0 ? '/ ' + totalMoves : ''}}
           </sullied>
-          <share @click="SharePuzzle">Share puzzle</share>
+          <share @click="SharePuzzle">Share this {{divider + 'x' + divider}} puzzle</share>
           <quit :class="{disabled: gameOver}" @click="ResetBoard">↻&#xFE0E;</quit>
         </chrome>
         <playarea>
           <board :class="{disabled: gameOver}">
             <piece :title="piece.id" v-for="piece in pieces" @click="TogglePieceSelection(piece)"
-              :class="[piece.state, {sullied: piece.sullied}]">
+              :class="[piece.state, {sullied: piece.sullied, t: piece.t, r: piece.r, b: piece.b, l: piece.l}]">
               <gild></gild>
             </piece>
           </board>
@@ -102,9 +102,14 @@
         <p>The object is to rotate the fewest number of walls to create an open path from the green corner to the red
           corner.
         </p>
-        <p style="margin-top: 20px;">Click/tap a wall to rotate it.</p>
+        <p style="margin-top: 20px;">Start a new puzzle</p>
+        <controls>
+          <button @click="location.href = 'https://' + location.host + location.pathname+'?board=19'">19x19</button>
+          <button @click="location.href = 'https://' + location.host + location.pathname+'?board=21'">21x21</button>
+          <button @click="location.href = 'https://' + location.host + location.pathname+'?board=23'">23x23</button>
+          <button @click="location.href = 'https://' + location.host + location.pathname+'?board=25'">25x25</button>
+        </controls>
       </stage>
-      <version>1.0</version>
     </app>
     <script id="vue-framework" src="helpers/vue.min.js" type='text/javascript'></script>
     <script src="models/PieceObject.js" type='text/javascript'></script>

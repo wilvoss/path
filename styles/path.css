@@ -125,16 +125,16 @@ howto.show {
 
 home #donate,
 button {
-  width: 220px;
-  height: 50px;
+  width: 80px;
+  height: 40px;
   margin-top: 20px;
   box-shadow: 0px 10px 10px rgb(0 0 0 / 50%);
   border-radius: 8px;
   color: white;
   border: none;
-  font-family: 'Bangers';
-  font-size: 1.7em;
-  background-color: var(--color2);
+  font-size: 1em;
+  font-weight: bold;
+  background-color: black;
 }
 
 button.primary {
@@ -264,8 +264,9 @@ board {
 
 piece {
   cursor: pointer;
-  width: calc(var(--pieceSize));
-  height: calc(var(--pieceSize));
+  width: calc(var(--pieceSize) - 2px);
+  height: calc(var(--pieceSize) - 2px);
+  border: 1px solid transparent;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -275,6 +276,26 @@ piece {
   background: rgba(0, 0, 0, 0.05);
 }
 
+piece.t {
+  border-top-color: rgb(0, 255, 0);
+}
+piece.l {
+  border-left-color: rgb(0, 255, 0);
+}
+piece.b {
+  border-bottom-color: rgb(0, 255, 0);
+}
+piece.r {
+  border-right-color: rgb(0, 255, 0);
+}
+/* 
+.showgrid piece.t,
+.showgrid piece.l,
+.showgrid piece.b,
+.showgrid piece.r {
+  border-color: transparent;
+} */
+
 piece gild {
   pointer-events: none;
   display: block;
@@ -283,6 +304,18 @@ piece gild {
   background-color: transparent;
   height: calc(var(--pieceSize) * 2);
 }
+
+/* piece.vertical {
+  background: linear-gradient(90deg, rgb(0, 255, 0) 2px, transparent 2px);
+}
+
+piece.horizontal {
+  background: linear-gradient(0deg, rgb(0, 255, 0) 2px, transparent 2px);
+}
+
+piece.off {
+  background: linear-gradient(45deg, rgb(0, 255, 0) 2px, transparent 2px);
+} */
 
 piece.vertical gild,
 piece.horizontal gild {

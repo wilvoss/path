@@ -26,7 +26,7 @@ var app = new Vue({
     numberOfSullied: 0,
     currentMisses: 0,
     divider: 21,
-    showGrid: true,
+    showGrid: false,
     savedState: [],
     statePurgatory: [],
     totalMoves: 0,
@@ -47,13 +47,89 @@ var app = new Vue({
         }
       });
       this.nope = false;
+      this.CheckPath();
+    },
+    CheckPath() {
+      if (this.pieces.length == this.divider * this.divider)
+        for (let x = 0; x < this.pieces.length; x++) {
+          const piece = this.pieces[x];
+          // add all open horizontal paths
+          if (x < this.divider) {
+            piece.t = piece.state != 'vertical';
+          } else {
+            piece.t = piece.state != 'vertical' && this.pieces[x - this.divider].state != 'vertical';
+          }
+          if (x >= this.pieces.length - this.divider) {
+            piece.b = piece.state != 'vertical';
+          }
+          // add all open vertical paths
+          if (x % this.divider == 0) {
+            piece.l = piece.state != 'horizontal';
+          } else {
+            piece.l = piece.state != 'horizontal' && this.pieces[x - 1].state != 'horizontal';
+          }
+          if ((x + 1) % this.divider == 0) {
+            piece.r = piece.state != 'horizontal';
+          }
+        }
+      this.RemoveDeadEndPaths();
+    },
+    RemoveDeadEndPaths() {
+      let nw = new PieceObject({});
+      let n = new PieceObject({});
+      let ne = new PieceObject({});
+      let w = new PieceObject({});
+      let e = new PieceObject({});
+      let sw = new PieceObject({});
+      let s = new PieceObject({});
+      let se = new PieceObject({});
+
+      let count = -1;
+      while (count != 0) {
+        let tempcount = 0;
+        for (let x = 1; x < this.pieces.length - 1; x++) {
+          const piece = this.pieces[x];
+          // find neighbors
+          if (x - this.divider - 1 >= 0) nw = this.pieces[x - this.divider - 1];
+          if (x - this.divider >= 0) n = this.pieces[x - this.divider];
+          if (x - this.divider + 1 >= 0) ne = this.pieces[x - this.divider + 1];
+          if (x - 1 > 0) w = this.pieces[x - 1];
+          if (x + 1 < this.pieces.length - 1) e = this.pieces[x + 1];
+          if (x + this.divider - 1 < this.pieces.length - 1) sw = this.pieces[x + this.divider - 1];
+          if (x + this.divider < this.pieces.length) s = this.pieces[x + this.divider];
+          if (x + this.divider + 1 < this.pieces.length) se = this.pieces[x + this.divider + 1];
+
+          // remove top paths from disconnected surfaces
+          if (piece.t && x < this.divider && ((!w.t && !piece.l) || (!e.t && !e.l))) {
+            piece.t = false;
+            tempcount++;
+          } else if (piece.t && x >= this.divider && ((!w.t && !piece.l && !n.l) || (!e.t && !e.l && !ne.l))) {
+            piece.t = false;
+            tempcount++;
+          }
+          //remove bottom paths from disconnected surfaces
+          if (piece.b && x != this.pieces.length - 1 && ((!piece.l && !w.b) || (!e.l && !e.b))) {
+            piece.b = false;
+            tempcount++;
+          }
+          // remove left paths from disconnected surfaces
+          if (piece.l && x % this.divider == 0 && ((!piece.t && !n.l) || (!s.t && !s.l))) {
+            piece.l = false;
+            tempcount++;
+          } else if (piece.l && x % this.divider != 0 && ((!w.t && !piece.t && !n.l) || (!sw.t && !s.t && !s.l))) {
+            piece.l = false;
+            tempcount++;
+          }
+          // remove right paths from disconnected surfaces
+          if (piece.r && x != this.pieces.length - 1 && ((!piece.t && !n.r) || (!s.t && !s.r))) {
+            piece.r = false;
+            tempcount++;
+          }
+          count = tempcount;
+        }
+      }
     },
     SaveBoard(solution = false) {
-      // this.statePurgatory = [];
-      // this.pieces.forEach((piece) => {
-      //   this.statePurgatory.push(new PieceObject(piece));
-      // });
-      // this.ResetBoard();
       var pieceData = [];
       this.pieces.forEach((piece) => {
         state = piece.state == 'off' ? '' : piece.state == 'vertical' ? 'v' : 'h';
@@ -61,7 +137,6 @@ var app = new Vue({
         pieceData.push(state);
       });
       this.savedState = pieceData;
-      // this.pieces = this.statePurgatory;
     },
     NewBoard(useState = false) {
       idCount = 0;
@@ -95,14 +170,15 @@ var app = new Vue({
         });
         piece.originalState = originalState == null ? piece.state : originalState;
         this.pieces.push(piece);
-        this.CheckBoard();
       }
+      this.CheckBoard();
     },
     ResetBoard() {
       this.pieces.forEach((piece) => {
         piece.state = piece.originalState;
         piece.sullied = false;
       });
+      this.CheckBoard();
     },
     TogglePieceSelection(piece) {
       if (piece.state != 'off') {
