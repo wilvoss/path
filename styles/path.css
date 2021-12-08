@@ -284,11 +284,6 @@ piece gild {
   height: calc(var(--pieceSize) * 2);
 }
 
-piece.vertical,
-piece.horizontal {
-  /* background: radial-gradient(rgba(0, 0, 0, 0.2), white 75%); */
-}
-
 piece.vertical gild,
 piece.horizontal gild {
   background: rgba(0, 0, 0, 1);
@@ -320,9 +315,19 @@ share {
   margin: 20px 0px;
   font-weight: bold;
   cursor: pointer;
+  white-space: nowrap;
+}
+
+p {
+  margin: 0px 20px;
+  text-align: center;
 }
 
 @media only screen and (max-width: 500px) {
+  body {
+    width: 100%;
+  }
+
   quit {
     align-items: flex-start;
   }

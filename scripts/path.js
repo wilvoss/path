@@ -114,7 +114,7 @@ var app = new Vue({
     SharePuzzle() {
       this.SaveBoard();
       navigator.share({
-        title: 'Like Me?',
+        title: 'Path',
         text: "Here's a puzzle I'm working on.",
         url: 'https://' + location.host + location.pathname + '?board=' + this.divider + '&walls=' + this.savedState.toString(),
       });
@@ -122,8 +122,8 @@ var app = new Vue({
     ShareSolution() {
       this.SaveBoard();
       navigator.share({
-        title: 'Like Me?',
-        text: "Here's a puzzle I'm working on.",
+        title: 'Path',
+        text: "Here's a puzzle I've solved.",
         url: 'https://' + location.host + location.pathname + '?solution=' + this.divider + '&walls=' + this.savedState.toString(),
       });
     },

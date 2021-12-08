@@ -17,7 +17,7 @@
     <meta name="keywords" content="Path, Big Tent Games, Games, Free, FullyFree" />
     <meta name="description" content="Paths are the means to connect." />
 
-    <meta name="twitter:card" content="summary_large_image">
+    <!-- <meta name="twitter:card" content="summary_large_image">
     </meta>
     <meta property="og:title" content="Path" />
     <meta property="og:site_name" content="Path" />
@@ -26,7 +26,7 @@
     <meta property="og:url" content="https://path.games" />
     <meta property="og:image" content="https://path.games/images/path_og.png" />
     <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:image:height" content="630" /> -->
 
     <link id="appleicon" rel="apple-touch-icon" sizes="180x180" href="images/icon180.png">
     <!-- iPhone X (1125px x 2436px) -->
@@ -98,8 +98,11 @@
             </piece>
           </board>
         </playarea>
-        <share @click="ShareSolution">Share solution</share>
-
+        <share @click="ShareSolution">Share your solution</share>
+        <p>The object is to rotate the fewest number of walls to create an open path from the green corner to the red
+          corner.
+        </p>
+        <p style="margin-top: 20px;">Click/tap a wall to rotate it.</p>
       </stage>
       <version>1.0</version>
     </app>
