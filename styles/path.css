@@ -1,0 +1,329 @@
+:root {
+  --appBackground: hsl(0, 0%, 100%);
+  --appForeground: hsl(0, 0%, 11%);
+  --targetX: 50%;
+
+  --pieceSize: 110px;
+  --gridSize: 110;
+
+  --color1: rgb(92, 36, 80);
+  --color2: rgb(68, 157, 168);
+  --color3: rgb(198, 207, 64);
+
+  --shape1: url(images/Square.svg);
+  --shape2: url(images/Circle.svg);
+  --shape3: url(images/Triangle.svg);
+  --shape4: url(images/Hexagon.svg);
+  --infinity: url(images/Infinity.svg);
+
+  --bgImage1: repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.5) 0px, rgba(255, 255, 255, 0.5) 20px, rgba(255, 255, 255, 0) 20px, rgba(255, 255, 255, 0) 40px);
+  --bgImage2: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.7) 0px, rgba(255, 255, 255, 0.7) 2px, rgba(255, 255, 255, 0) 2px, rgba(255, 255, 255, 0) 4px);
+  --bgImage3: repeating-radial-gradient(circle, rgba(255, 255, 255, 0.5) 0px, rgba(255, 255, 255, 0.5) 10px, rgba(245, 63, 63, 0) 10px, rgba(255, 255, 255, 0) 20px);
+  --bgImage4: none;
+}
+html,
+body {
+  padding: 0px;
+  margin: 0px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: var(--appForeground);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+body {
+  height: 100%;
+  width: calc(100% - 40px);
+  max-width: 500px;
+  margin: 0px auto;
+  overflow: visible;
+  background: rgb(240, 240, 240);
+}
+
+[v-cloak] {
+  transition: 250ms ease-out opacity;
+  opacity: 0;
+}
+
+.disabled,
+:disabled {
+  pointer-events: none;
+  opacity: 0.1;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  margin: 80px 0px 0px 0px;
+  line-height: 100%;
+  font-weight: normal;
+}
+
+app {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  /* align-items: center;
+  flex-direction: column; */
+  height: 100%;
+}
+
+stage {
+  display: flex;
+  width: 100%;
+  margin: 0px auto;
+  flex-direction: column;
+  justify-content: flex-start;
+  box-shadow: 0px 0px 40px black;
+  align-items: center;
+  align-content: center;
+}
+
+home,
+howto {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: white;
+  margin: 0px auto;
+}
+
+quit {
+  height: 50px;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 2em;
+  z-index: 1;
+  cursor: pointer;
+  align-items: center;
+  padding-right: 20px;
+  width: 110px;
+}
+
+home,
+howto {
+  position: absolute;
+  z-index: 1000;
+  background: rgb(243, 243, 243);
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4);
+  display: none;
+  align-items: center;
+  align-content: center;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+
+home.show,
+howto.show {
+  display: flex;
+}
+
+home #donate,
+button {
+  width: 220px;
+  height: 50px;
+  margin-top: 20px;
+  box-shadow: 0px 10px 10px rgb(0 0 0 / 50%);
+  border-radius: 8px;
+  color: white;
+  border: none;
+  font-family: 'Bangers';
+  font-size: 1.7em;
+  background-color: var(--color2);
+}
+
+button.primary {
+  background-color: var(--color1);
+  color: white;
+}
+
+home #donate:focus,
+home #donate:active,
+button:focus,
+button:active {
+  transform: translateY(2px);
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.7);
+}
+
+home img {
+  width: 50%;
+  margin: 0px auto;
+  display: block;
+}
+
+modes {
+  display: flex;
+  margin: 40px 0px 0px;
+}
+
+chrome {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+howto chrome {
+  justify-content: flex-end;
+}
+
+howto h1 {
+  margin-top: 30px;
+}
+
+version {
+  display: block;
+  font-size: 0.8em;
+  padding: 0px;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+
+logo {
+  display: block;
+  /* background: url(../images/big_tent_logo.svg); */
+  width: 130px;
+  height: 105px;
+  background-size: cover;
+  margin-top: 60px;
+  opacity: 0.8;
+}
+
+sullied {
+  display: block;
+  text-align: left;
+  cursor: pointer;
+  padding: 0px 0px 0px 20px;
+  width: 110px;
+  /* margin-top: 30px; */
+  /* font-family: 'Courier New', Courier, monospace; */
+}
+
+time {
+  display: block;
+  text-align: center;
+  cursor: pointer;
+  padding: 0px 20px;
+  /* margin-top: 30px; */
+  /* font-family: 'Courier New', Courier, monospace; */
+}
+
+addtime {
+  display: block;
+  position: absolute;
+  transform: translateY(-20px);
+  font-family: 'Bangers';
+  font-size: 1.5em;
+  color: black;
+  transition: 3000ms ease-out all;
+  opacity: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  margin-left: -0.6em;
+}
+
+addtime.flyaway {
+  transition: 0ms linear none;
+  transform: translateY(20px);
+  opacity: 1;
+}
+
+puzzle {
+  display: flex;
+  justify-content: center;
+}
+
+playarea {
+  width: calc(var(--pieceSize) * (var(--gridSize) + 1) - 2px);
+  height: calc(var(--pieceSize) * (var(--gridSize) + 1) - 1px);
+  border: 2px solid black;
+  overflow: visible;
+  background: linear-gradient(-45deg, rgba(255, 0, 0, 1), rgba(255, 255, 255, 1) 2%, rgba(255, 255, 255, 1) 98%, rgba(0, 255, 0, 1));
+}
+
+board {
+  display: flex;
+  min-height: 100px;
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: calc(var(--pieceSize) * var(--gridSize));
+  height: calc(var(--pieceSize) * var(--gridSize));
+  transform: translate(calc(var(--pieceSize) / 2), calc(var(--pieceSize) / 2));
+  align-content: stretch;
+  justify-content: space-evenly;
+  align-items: stretch;
+}
+
+piece {
+  cursor: pointer;
+  width: calc(var(--pieceSize));
+  height: calc(var(--pieceSize));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.showgrid piece:nth-child(odd) {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+piece gild {
+  pointer-events: none;
+  display: block;
+  position: absolute;
+  width: 1px;
+  background-color: transparent;
+  height: calc(var(--pieceSize) * 2);
+}
+
+piece.vertical,
+piece.horizontal {
+  /* background: radial-gradient(rgba(0, 0, 0, 0.2), white 75%); */
+}
+
+piece.vertical gild,
+piece.horizontal gild {
+  background: rgba(0, 0, 0, 1);
+}
+
+piece.horizontal gild {
+  width: calc(var(--pieceSize) * 2);
+  height: 1px;
+}
+
+piece.sullied.vertical gild,
+piece.sullied.horizontal gild {
+  background: red;
+}
+piece:hover.sullied.vertical gild,
+piece:hover.sullied.horizontal gild,
+piece:hover.vertical gild,
+piece:hover.horizontal gild {
+  background: rgb(255, 0, 255);
+  box-shadow: 0px 0px 4px rgb(255, 0, 255);
+  z-index: 100;
+}
+
+piece gild img {
+  opacity: 0;
+}
+
+share {
+  margin: 20px 0px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 500px) {
+  quit {
+    align-items: flex-start;
+  }
+}

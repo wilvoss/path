@@ -1,0 +1,1 @@
+var idCount=0;class PieceObject{constructor(l){this.id=null==l.id?"id"+idCount++:l.id,this.state=null==l.state?"off":l.state,this.originalState=null==l.originalState?"off":l.originalState,this.locked=null==l.locked||l.locked,this.sullied=null!=l.sullied&&l.sullied}}
