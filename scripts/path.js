@@ -104,7 +104,7 @@ var app = new Vue({
           if (x + this.divider + 1 < this.pieces.length && (x + this.divider + 1) % this.divider != this.divider) se = this.pieces[x + this.divider + 1];
 
           // remove top paths from disconnected surfaces
-          if (x < this.divider && piece.t && ((!w.t && !piece.l) || (!e.t && !e.l))) {
+          if (x < this.divider && piece.t && ((x != this.divider - 1 && !w.t && !piece.l) || (x == this.divider - 1 && !w.t && !piece.r) || (x != this.divider - 1 && !e.t && !e.l))) {
             piece.t = false;
             tempcount++;
           } else if (piece.t && x % this.divider == this.divider - 1 && !n.r && !piece.r && !e.t) {
@@ -128,7 +128,7 @@ var app = new Vue({
             tempcount++;
           }
           // remove right paths from disconnected surfaces
-          if (piece.r && x != this.pieces.length - 1 && ((!piece.t && !n.r) || (!s.t && !s.r))) {
+          if (piece.r && x != this.pieces.length - 1 && ((x != this.divider - 1 && !piece.t && !n.r) || (x == this.divider - 1 && !piece.t && !s.r) || (!s.t && !s.r))) {
             piece.r = false;
             tempcount++;
           }
@@ -260,12 +260,9 @@ var app = new Vue({
       }
       if (params.has('walls')) {
         this.savedState = params.get('walls').split(',');
-      } else {
+      } else if (window.location.search.split(',').length == this.divider * this.divider) {
         this.savedState = window.location.search.split(',');
       }
-      // if (this.savedState.length == this.divider * this.divider) {
-      //   this.NewBoard(true);
-      // }
     },
     Resize() {
       var size = (document.body.clientWidth - 40) / this.divider;
