@@ -27,6 +27,7 @@ var app = new Vue({
     currentMisses: 0,
     divider: 21,
     showGrid: false,
+    showPath: true,
     savedState: [],
     statePurgatory: [],
     totalMoves: 0,
@@ -68,7 +69,7 @@ var app = new Vue({
           } else {
             piece.l = piece.state != 'horizontal' && this.pieces[x - 1].state != 'horizontal';
           }
-          if ((x + 1) % this.divider == 0) {
+          if (x % this.divider == this.divider - 1) {
             piece.r = piece.state != 'horizontal';
           }
         }
@@ -83,27 +84,33 @@ var app = new Vue({
       let sw = new PieceObject({});
       let s = new PieceObject({});
       let se = new PieceObject({});
-
+      let ultracount = 0;
       let count = -1;
       while (count != 0) {
+        ultracount++;
+        console.log(ultracount);
         let tempcount = 0;
         for (let x = 1; x < this.pieces.length - 1; x++) {
           const piece = this.pieces[x];
+
           // find neighbors
-          if (x - this.divider - 1 >= 0) nw = this.pieces[x - this.divider - 1];
+          if (x - this.divider - 1 >= 0 && (x - this.divider - 1) % this.divider != this.divider - 1) nw = this.pieces[x - this.divider - 1];
           if (x - this.divider >= 0) n = this.pieces[x - this.divider];
-          if (x - this.divider + 1 >= 0) ne = this.pieces[x - this.divider + 1];
-          if (x - 1 > 0) w = this.pieces[x - 1];
-          if (x + 1 < this.pieces.length - 1) e = this.pieces[x + 1];
-          if (x + this.divider - 1 < this.pieces.length - 1) sw = this.pieces[x + this.divider - 1];
+          if (x - this.divider + 1 >= 0 && (x - this.divider + 1) % this.divider != this.divider) ne = this.pieces[x - this.divider + 1];
+          w = this.pieces[x - 1];
+          e = this.pieces[x + 1];
+          if (x + this.divider - 1 < this.pieces.length - 1 && (x + this.divider - 1) % this.divider != this.divider - 1) sw = this.pieces[x + this.divider - 1];
           if (x + this.divider < this.pieces.length) s = this.pieces[x + this.divider];
-          if (x + this.divider + 1 < this.pieces.length) se = this.pieces[x + this.divider + 1];
+          if (x + this.divider + 1 < this.pieces.length && (x + this.divider + 1) % this.divider != this.divider) se = this.pieces[x + this.divider + 1];
 
           // remove top paths from disconnected surfaces
-          if (piece.t && x < this.divider && ((!w.t && !piece.l) || (!e.t && !e.l))) {
+          if (x < this.divider && piece.t && ((!w.t && !piece.l) || (!e.t && !e.l))) {
             piece.t = false;
             tempcount++;
-          } else if (piece.t && x >= this.divider && ((!w.t && !piece.l && !n.l) || (!e.t && !e.l && !ne.l))) {
+          } else if (piece.t && x % this.divider == this.divider - 1 && !n.r && !piece.r && !e.t) {
+            piece.t = false;
+            tempcount++;
+          } else if (piece.t && x >= this.divider && ((!w.t && !piece.l && !n.l) || (x % this.divider != this.divider - 1 && !e.t && !e.l && !ne.l))) {
             piece.t = false;
             tempcount++;
           }
@@ -113,16 +120,21 @@ var app = new Vue({
             tempcount++;
           }
           // remove left paths from disconnected surfaces
-          if (piece.l && x % this.divider == 0 && ((!piece.t && !n.l) || (!s.t && !s.l))) {
+          if (piece.l && x % this.divider == 0 && x != this.pieces.length - 1 && ((!piece.t && !n.l) || (!s.t && !s.l))) {
             piece.l = false;
             tempcount++;
-          } else if (piece.l && x % this.divider != 0 && ((!w.t && !piece.t && !n.l) || (!sw.t && !s.t && !s.l))) {
+          } else if (piece.l && x % this.divider != 0 && ((!w.t && !piece.t && !n.l) || (x < this.pieces.length - this.divider && !sw.t && !s.t && !s.l) || (x >= this.pieces.length - this.divider && !w.b && !e.b))) {
             piece.l = false;
             tempcount++;
           }
           // remove right paths from disconnected surfaces
           if (piece.r && x != this.pieces.length - 1 && ((!piece.t && !n.r) || (!s.t && !s.r))) {
             piece.r = false;
+            tempcount++;
+          }
+          //remove single loops
+          if ((piece.l && piece.t && e.l && s.t) || (piece.l && piece.t && piece.r && s.t) || (piece.l && piece.t && e.l && piece.b)) {
+            piece.l = false;
             tempcount++;
           }
           count = tempcount;

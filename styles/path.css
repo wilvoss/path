@@ -276,25 +276,25 @@ piece {
   background: rgba(0, 0, 0, 0.05);
 }
 
-piece.t {
+.showpath piece.t {
   border-top-color: rgb(0, 255, 0);
 }
-piece.l {
+.showpath piece.l {
   border-left-color: rgb(0, 255, 0);
 }
-piece.b {
+.showpath piece.b {
   border-bottom-color: rgb(0, 255, 0);
 }
-piece.r {
+.showpath piece.r {
   border-right-color: rgb(0, 255, 0);
 }
-/* 
-.showgrid piece.t,
-.showgrid piece.l,
-.showgrid piece.b,
-.showgrid piece.r {
+
+piece.t,
+piece.l,
+piece.b,
+piece.r {
   border-color: transparent;
-} */
+}
 
 piece gild {
   pointer-events: none;

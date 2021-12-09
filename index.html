@@ -80,7 +80,7 @@
       <audio id="themeMusic" loop>
         <source src="" id="themeSource" type="audio/aac">
       </audio>
-      <stage v-cloak :class="{showgrid: showGrid}">
+      <stage v-cloak :class="{showgrid: showGrid, showpath: showPath}">
         <gameOver v-if="gameOver">
           <h1>Game Over</h1>
         </gameOver>
@@ -88,7 +88,7 @@
           <sullied @click="showGrid = !showGrid">{{numberOfSullied}} {{totalMoves != 0 ? '/ ' + totalMoves : ''}}
           </sullied>
           <share @click="SharePuzzle">Share this {{divider + 'x' + divider}} puzzle</share>
-          <quit :class="{disabled: gameOver}" @click="ResetBoard">↻&#xFE0E;</quit>
+          <quit @click="showPath = !showPath">↝&#xFE0E;</quit>
         </chrome>
         <playarea>
           <board :class="{disabled: gameOver}">
@@ -99,15 +99,16 @@
           </board>
         </playarea>
         <share @click="ShareSolution">Share your solution</share>
-        <p>The object is to rotate the fewest number of walls to create an open path from the green corner to the red
-          corner.
+        <p>The object is to rotate the fewest walls to
+          create an open path from
+          the green corner to the red corner.
         </p>
         <p style="margin-top: 20px;">Start a new puzzle</p>
         <controls>
           <button @click="location.href = 'https://' + location.host + location.pathname+'?board=19'">19x19</button>
           <button @click="location.href = 'https://' + location.host + location.pathname+'?board=21'">21x21</button>
           <button @click="location.href = 'https://' + location.host + location.pathname+'?board=23'">23x23</button>
-          <button @click="location.href = 'https://' + location.host + location.pathname+'?board=25'">25x25</button>
+          <button @click="location.href = 'https://' + location.host + location.pathname+'?board=29'">29x29</button>
         </controls>
       </stage>
     </app>
