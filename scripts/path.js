@@ -148,7 +148,7 @@ var app = new Vue({
         state = state + (piece.sullied ? 's' : '');
         pieceData.push(state);
       });
-      this.savedState = pieceData;
+      this.savedState = btoa(pieceData);
     },
     NewBoard(useState = false) {
       idCount = 0;
@@ -259,7 +259,7 @@ var app = new Vue({
         this.loadingSolution = true;
       }
       if (params.has('walls')) {
-        this.savedState = params.get('walls').split(',');
+        this.savedState = atob(params.get('walls')).split(',');
       } else if (window.location.search.split(',').length == this.divider * this.divider) {
         this.savedState = window.location.search.split(',');
       }
