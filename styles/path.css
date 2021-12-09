@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'Faustina';
+  src: url('../fonts/Faustina-VariableFont_wght.ttf');
+}
+
 :root {
   --appBackground: hsl(0, 0%, 100%);
   --appForeground: hsl(0, 0%, 11%);
@@ -14,7 +19,7 @@ body {
   height: 100%;
   overflow: hidden;
   color: var(--appForeground);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Faustina';
   user-select: none;
   -webkit-user-select: none;
 }
@@ -116,6 +121,7 @@ button {
   height: 40px;
   margin-top: 20px;
   box-shadow: 0px 5px 5px rgb(0 0 0 / 20%);
+  border-radius: 3px;
   color: white;
   border: none;
   font-size: 1em;
