@@ -1,8 +1,8 @@
 {
-    "name":"Like Me?",
+    "name":"Path",
     "lang":"en-us",
-    "short_name":"Like Me?",
-    "description":"A game of matching likenesses.",
+    "short_name":"Path",
+    "description":"Paths are the means to connect.",
     "start_url":"/",
     "scope":"/",
     "id":"/",

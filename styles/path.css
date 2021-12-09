@@ -5,21 +5,6 @@
 
   --pieceSize: 110px;
   --gridSize: 110;
-
-  --color1: rgb(92, 36, 80);
-  --color2: rgb(68, 157, 168);
-  --color3: rgb(198, 207, 64);
-
-  --shape1: url(images/Square.svg);
-  --shape2: url(images/Circle.svg);
-  --shape3: url(images/Triangle.svg);
-  --shape4: url(images/Hexagon.svg);
-  --infinity: url(images/Infinity.svg);
-
-  --bgImage1: repeating-linear-gradient(-45deg, rgba(255, 255, 255, 0.5) 0px, rgba(255, 255, 255, 0.5) 20px, rgba(255, 255, 255, 0) 20px, rgba(255, 255, 255, 0) 40px);
-  --bgImage2: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.7) 0px, rgba(255, 255, 255, 0.7) 2px, rgba(255, 255, 255, 0) 2px, rgba(255, 255, 255, 0) 4px);
-  --bgImage3: repeating-radial-gradient(circle, rgba(255, 255, 255, 0.5) 0px, rgba(255, 255, 255, 0.5) 10px, rgba(245, 63, 63, 0) 10px, rgba(255, 255, 255, 0) 20px);
-  --bgImage4: none;
 }
 html,
 body {
@@ -34,13 +19,16 @@ body {
   -webkit-user-select: none;
 }
 
+html {
+  background: repeating-linear-gradient(90deg, rgb(244, 244, 244) 0px, rgb(244, 244, 244) 40px, rgb(250, 250, 250) 40px, rgb(250, 250, 250) 80px);
+}
+
 body {
   height: 100%;
   width: calc(100% - 40px);
   max-width: 500px;
   margin: 0px auto;
   overflow: visible;
-  background: rgb(240, 240, 240);
 }
 
 [v-cloak] {
@@ -79,7 +67,6 @@ stage {
   margin: 0px auto;
   flex-direction: column;
   justify-content: flex-start;
-  box-shadow: 0px 0px 40px black;
   align-items: center;
   align-content: center;
 }
@@ -128,8 +115,7 @@ button {
   width: 80px;
   height: 40px;
   margin-top: 20px;
-  box-shadow: 0px 10px 10px rgb(0 0 0 / 50%);
-  border-radius: 8px;
+  box-shadow: 0px 5px 5px rgb(0 0 0 / 20%);
   color: white;
   border: none;
   font-size: 1em;
@@ -146,8 +132,8 @@ home #donate:focus,
 home #donate:active,
 button:focus,
 button:active {
-  transform: translateY(2px);
-  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.7);
+  transform: translateY(1px);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 }
 
 home img {
@@ -188,13 +174,26 @@ version {
 }
 
 logo {
-  display: block;
-  /* background: url(../images/big_tent_logo.svg); */
-  width: 130px;
-  height: 105px;
-  background-size: cover;
-  margin-top: 60px;
-  opacity: 0.8;
+  display: inline-block;
+  mask-image: url(../images/big_tent_logo.svg);
+  -webkit-mask-image: url(../images/big_tent_logo.svg);
+  background: rgb(173, 0, 0);
+  cursor: pointer;
+  margin-top: 40px;
+  width: 120px;
+  height: 99.188px;
+  mask-size: 120px 99.188px;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-size: 120px 99.188px;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  opacity: 0.7;
+  transition: 100ms ease-out opacity;
+}
+
+logo:hover {
+  opacity: 1;
 }
 
 sullied {
@@ -354,14 +353,4 @@ share {
 p {
   margin: 0px 20px;
   text-align: center;
-}
-
-@media only screen and (max-width: 500px) {
-  body {
-    width: 100%;
-  }
-
-  quit {
-    align-items: flex-start;
-  }
 }
