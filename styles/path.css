@@ -274,9 +274,9 @@ board {
 
 piece {
   cursor: pointer;
-  width: calc(var(--pieceSize) - 2px);
-  height: calc(var(--pieceSize) - 2px);
-  border: 1px dashed transparent;
+  width: calc(var(--pieceSize) - 4px);
+  height: calc(var(--pieceSize) - 4px);
+  border: 2px dashed transparent;
   display: flex;
   justify-content: center;
   align-items: center;
