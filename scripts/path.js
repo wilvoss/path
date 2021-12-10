@@ -262,7 +262,11 @@ var app = new Vue({
         this.loadingSolution = true;
       }
       if (params.has('walls')) {
-        this.savedState = atob(params.get('walls')).split('');
+        try {
+          this.savedState = atob(params.get('walls')).split('');
+        } catch {
+          this.savedState = params.get('walls').split('');
+        }
       }
     },
     Resize() {
