@@ -142,11 +142,13 @@ var app = new Vue({
       }
     },
     SaveBoard(solution = false) {
-      var pieceData = [];
+      var pieceData = '';
       this.pieces.forEach((piece) => {
-        state = piece.state == 'off' ? '' : piece.state == 'vertical' ? 'v' : 'h';
-        state = state + (piece.sullied ? 's' : '');
-        pieceData.push(state);
+        state = piece.state == 'off' ? 'o' : piece.state == 'vertical' ? 'l' : '-';
+        if (piece.sullied) {
+          state = state == 'l' ? 'v' : 'h';
+        }
+        pieceData += state;
       });
       this.savedState = btoa(pieceData);
     },
@@ -165,19 +167,20 @@ var app = new Vue({
         if (useState && this.savedState != undefined && this.savedState[x] != undefined) {
           state = this.savedState[x].substring(0, 1);
 
-          if (this.savedState[x].length > 1) {
+          if (this.savedState[x] == 'h' || this.savedState[x] == 'v') {
             this.totalMoves++;
             if (this.loadingSolution) {
               sullied = true;
               originalState = state == 'v' ? 'horizontal' : 'vertical';
+              state = state == 'v' ? 'l' : '-';
             } else {
-              state = state == 'v' ? 'h' : 'v';
-              originalState = state == 'v' ? 'vertical' : 'horizontal';
+              state = state == 'v' ? '-' : 'l';
+              originalState = state == 'l' ? 'vertical' : 'horizontal';
             }
           }
         }
         let piece = new PieceObject({
-          state: useState ? (state == '' ? 'off' : state == 'v' ? 'vertical' : 'horizontal') : this.pieceStates[getRandomInt(0, this.pieceStates.length)],
+          state: useState ? (state == 'o' ? 'off' : state == 'l' ? 'vertical' : 'horizontal') : this.pieceStates[getRandomInt(0, this.pieceStates.length)],
           sullied: sullied,
         });
         piece.originalState = originalState == null ? piece.state : originalState;
@@ -259,9 +262,7 @@ var app = new Vue({
         this.loadingSolution = true;
       }
       if (params.has('walls')) {
-        this.savedState = atob(params.get('walls')).split(',');
-      } else if (window.location.search.split(',').length == this.divider * this.divider) {
-        this.savedState = window.location.search.split(',');
+        this.savedState = atob(params.get('walls')).split('');
       }
     },
     Resize() {
