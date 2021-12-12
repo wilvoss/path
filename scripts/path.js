@@ -1,5 +1,4 @@
 /// <reference path="../helpers/console-enhancer.js" />
-/// <reference path="../models/PieceObject.js" />
 
 // if (!UseDebug) {
 Vue.config.devtools = false;
@@ -206,7 +205,7 @@ var app = new Vue({
       this.SaveBoard();
       navigator.share({
         title: 'Path',
-        text: "Here's a puzzle I'm working on.",
+        text: "Here's a Path puzzle I'm working on. How well can you do?",
         url: 'https://' + location.host + location.pathname + '?board=' + this.divider + '&walls=' + this.savedState.toString(),
       });
     },
@@ -214,11 +213,12 @@ var app = new Vue({
       this.SaveBoard();
       navigator.share({
         title: 'Path',
-        text: "Here's a puzzle I've solved.",
+        text: "Here's a Path puzzle I've solved! Can you beat my score?",
         url: 'https://' + location.host + location.pathname + '?solution=' + this.divider + '&walls=' + this.savedState.toString(),
       });
     },
-    RestartGame() {
+    RestartGame(size = 21) {
+      this.divider = size;
       this.timer = 0;
       this.numberOfFails = 0;
       this.numberOfClears = 0;

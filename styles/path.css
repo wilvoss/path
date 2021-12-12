@@ -5,7 +5,7 @@
 
 :root {
   --appBackground: hsl(0, 0%, 100%);
-  --appForeground: hsl(0, 0%, 11%);
+  --appForeground: hsl(0, 0%, 0%);
   --targetX: 50%;
 
   --pieceSize: 110px;
@@ -71,7 +71,7 @@ stage {
   width: 100%;
   margin: 0px auto;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   align-content: center;
 }
@@ -119,19 +119,22 @@ home #donate,
 button {
   cursor: pointer;
   width: 80px;
-  height: 40px;
+  height: 30px;
   margin-top: 20px;
   box-shadow: 0px 5px 5px rgb(0 0 0 / 20%);
   border-radius: 3px;
-  color: white;
-  border: none;
+  background-color: rgb(0, 0, 0);
+  border: 1px solid rgb(0, 0, 0);
   font-size: 1em;
   font-weight: bold;
-  background-color: rgb(41, 41, 41);
+  color: white;
+  font-family: 'Faustina';
+  padding-bottom: 5px;
 }
 
 button:hover {
-  background-color: rgb(0, 0, 0);
+  color: hsl(300, 100%, 68%);
+  /* background-color: rgb(41, 41, 41); */
 }
 
 button.primary {
@@ -355,20 +358,22 @@ piece gild img {
 }
 
 share {
-  margin: 20px 0px;
+  margin: 0px 0px;
   font-weight: bold;
   cursor: pointer;
   white-space: nowrap;
-  border: 1px solid black;
-  padding: 0px 10px 4px;
-  border-radius: 3px;
+  background-color: var(--appForeground);
+  color: var(--appBackground);
+  padding: 2px 20px 6px;
+  border-radius: 3px 3px 0px 0px;
+  transform: translateY(12px);
 }
 
 share:hover {
-  background: white;
+  color: hsl(300, 100%, 68%);
 }
 
 p {
-  margin: 0px 20px;
+  margin: 10px 20px 0px;
   text-align: center;
 }
