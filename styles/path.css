@@ -279,7 +279,7 @@ piece {
   cursor: pointer;
   width: calc(var(--pieceSize) - 4px);
   height: calc(var(--pieceSize) - 4px);
-  border: 2px dashed transparent;
+  border: 2px solid transparent;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -332,7 +332,7 @@ piece.off {
 
 piece.vertical gild,
 piece.horizontal gild {
-  background: rgb(78, 78, 78);
+  background: rgba(108, 108, 108, 1);
 }
 
 piece.horizontal gild {
@@ -344,6 +344,17 @@ piece.sullied.vertical gild,
 piece.sullied.horizontal gild {
   background: red;
 }
+
+piece.sullied.horizontal gild {
+  width: calc(var(--pieceSize) * 2);
+  height: 2px;
+}
+
+piece.sullied.vertical gild {
+  height: calc(var(--pieceSize) * 2);
+  width: 2px;
+}
+
 piece:hover.sullied.vertical gild,
 piece:hover.sullied.horizontal gild,
 piece:hover.vertical gild,
